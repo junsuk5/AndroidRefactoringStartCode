@@ -18,12 +18,18 @@ class MainViewModel(
     private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
+    // TODO : LiveData 제거 -> Flow
     private var _state = MutableLiveData(MainUiState())
     val state: LiveData<MainUiState> = _state
+
+    // TODO : 이벤트, 에러 처리
 
     // 실제로는 오래 걸리는 처리
     fun fetchPhotos(query: String) {
         viewModelScope.launch {
+            // TODO : query 예외 처리
+
+            // TODO : 네트워크 예외 처리
             _state.value = state.value!!.copy(
                 isProgress = true,
                 photos = emptyList(),

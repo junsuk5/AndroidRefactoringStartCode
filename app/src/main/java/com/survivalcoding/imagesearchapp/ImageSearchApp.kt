@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
+// TODO: DI 라이브러리 사용
 class ImageSearchApp : Application() {
     private val api: PhotoApi by lazy {
         Retrofit.Builder()
