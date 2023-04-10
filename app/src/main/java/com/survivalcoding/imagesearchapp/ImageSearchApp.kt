@@ -1,7 +1,14 @@
 package com.survivalcoding.imagesearchapp
 
 import android.app.Application
+import com.survivalcoding.imagesearchapp.data.MockPhotoRepositoryImpl
+import com.survivalcoding.imagesearchapp.data.PixabayPhotoRepositoryImpl
+import com.survivalcoding.imagesearchapp.domain.PhotoRepository
 
-// TODO: 의존성 주입
 class ImageSearchApp : Application() {
+
+    val photoRepository: PhotoRepository by lazy {
+        PixabayPhotoRepositoryImpl()
+//        MockPhotoRepositoryImpl()
+    }
 }

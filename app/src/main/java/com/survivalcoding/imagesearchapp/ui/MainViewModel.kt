@@ -1,12 +1,11 @@
 package com.survivalcoding.imagesearchapp.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.survivalcoding.imagesearchapp.data.MockPhotoRepositoryImpl
+import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.survivalcoding.imagesearchapp.ImageSearchApp
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
-import com.survivalcoding.imagesearchapp.data.PixabayPhotoRepositoryImpl
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
 import kotlinx.coroutines.launch
 
@@ -16,7 +15,7 @@ data class MainUiState(
 )
 
 class MainViewModel(
-    private val photoRepository: PhotoRepository = PixabayPhotoRepositoryImpl()
+    private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
     private var _state = MutableLiveData(MainUiState())
@@ -34,6 +33,17 @@ class MainViewModel(
                 isProgress = false,
                 photos = photoRepository.fetchPhotos(query),
             )
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val photoRepository = (this[APPLICATION_KEY] as ImageSearchApp).photoRepository
+                MainViewModel(
+                    photoRepository = photoRepository
+                )
+            }
         }
     }
 }

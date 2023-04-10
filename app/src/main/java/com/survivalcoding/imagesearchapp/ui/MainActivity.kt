@@ -1,46 +1,43 @@
 package com.survivalcoding.imagesearchapp.ui
 
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.survivalcoding.imagesearchapp.R
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val adapter: PhotoAdapter by lazy {
         PhotoAdapter()
     }
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModel.Factory
+    }
+
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        // TODO: ViewBinding 적용
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val queryEditText = findViewById<EditText>(R.id.query_edit_text)
-
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
+        binding.recyclerView.adapter = adapter
 
         // Reactive 하게 UI 수정
         viewModel.state.observe(this) { state ->
             updateUi(state.photos)
-            progressBar.isVisible = state.isProgress
+            binding.progressBar.isVisible = state.isProgress
         }
 
-        findViewById<ImageButton>(R.id.search_button).setOnClickListener {
+        binding.searchButton.setOnClickListener {
             // 사진 가져오기
-            viewModel.fetchPhotos(queryEditText.text.toString())
+            viewModel.fetchPhotos(binding.queryEditText.text.toString())
         }
     }
 
