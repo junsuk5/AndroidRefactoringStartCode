@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.imagesearchapp.data.MockPhotoRepositoryImpl
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.data.PixabayPhotoRepositoryImpl
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
 import kotlinx.coroutines.launch
 
@@ -15,7 +16,7 @@ data class MainUiState(
 )
 
 class MainViewModel(
-    private val photoRepository: PhotoRepository = MockPhotoRepositoryImpl()
+    private val photoRepository: PhotoRepository = PixabayPhotoRepositoryImpl()
 ) : ViewModel() {
 
     private var _state = MutableLiveData(MainUiState())
