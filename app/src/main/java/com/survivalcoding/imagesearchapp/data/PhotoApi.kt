@@ -3,7 +3,6 @@ package com.survivalcoding.imagesearchapp.data
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-// TODO: Retrofit 적용
 interface PhotoApi {
 
     @GET("api/?image_type=photo")

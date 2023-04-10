@@ -13,8 +13,9 @@ import com.survivalcoding.imagesearchapp.R
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
 
 class MainActivity : AppCompatActivity() {
-    // TODO: 안전한 코드로 변경
-    private lateinit var adapter: PhotoAdapter
+    private val adapter: PhotoAdapter by lazy {
+        PhotoAdapter()
+    }
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = GridLayoutManager(this, 2)
 
-        adapter = PhotoAdapter()
         recyclerView.adapter = adapter
 
         // Reactive 하게 UI 수정
