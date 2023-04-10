@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.survivalcoding.imagesearchapp.R
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.util.ext.setUrl
 
 class PhotoAdapter(
     private val onClicked: (PhotoInfo) -> Unit = {},
@@ -34,11 +33,7 @@ class PhotoAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val photo = getItem(position)
 
-        // TODO: 특정 라이브러리 의존성 제거
-        Glide.with(viewHolder.itemView)
-            .load(photo.previewURL)
-            .transform(RoundedCorners(20))
-            .into(viewHolder.imageView)
+        viewHolder.imageView.setUrl(photo.previewURL)
 
         // 클릭 이벤트 정의
         viewHolder.itemView.setOnClickListener {

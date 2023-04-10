@@ -14,7 +14,6 @@ import com.survivalcoding.imagesearchapp.data.PhotoInfo
 import com.survivalcoding.imagesearchapp.ui.PhotoAdapter
 import kotlinx.coroutines.launch
 
-// TODO: 화면 회전시 UI 데이터 초기화 방지
 class MainActivity : AppCompatActivity() {
     // TODO: 안전한 코드로 변경
     private lateinit var adapter: PhotoAdapter
