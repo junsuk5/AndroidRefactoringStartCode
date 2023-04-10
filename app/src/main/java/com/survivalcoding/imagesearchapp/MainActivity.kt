@@ -33,23 +33,15 @@ class MainActivity : AppCompatActivity() {
         adapter = PhotoAdapter()
         recyclerView.adapter = adapter
 
-        updateUi(viewModel.photos)
+        // Reactive 하게 UI 수정
+        viewModel.state.observe(this) { state ->
+            updateUi(state.photos)
+            progressBar.isVisible = state.isProgress
+        }
 
         findViewById<ImageButton>(R.id.search_button).setOnClickListener {
-            // TODO: 로딩 시작
-            progressBar.isVisible = true
-
             // 사진 가져오기
             viewModel.fetchPhotos(queryEditText.text.toString())
-
-            // TODO: 오래 걸리는 처리
-            Thread.sleep(2000)
-
-            // TODO: 데이터 변경시 UI에 자동 반영
-            updateUi(viewModel.photos)
-
-            // TODO: 로딩 끝
-            progressBar.isVisible = false
         }
     }
 
