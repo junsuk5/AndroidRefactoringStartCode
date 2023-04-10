@@ -3,7 +3,10 @@ package com.survivalcoding.imagesearchapp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 data class MainUiState(
     val photos: List<PhotoInfo> = emptyList(),
@@ -14,18 +17,21 @@ class MainViewModel : ViewModel() {
     private var _state = MutableLiveData(MainUiState())
     val state: LiveData<MainUiState> = _state
 
-    // TODO: 실제로는 오래 걸리는 처리
+    // 실제로는 오래 걸리는 처리
     fun fetchPhotos(query: String) {
-        _state.value = state.value!!.copy(
-            isProgress = true
-        )
+        viewModelScope.launch {
+            _state.value = state.value!!.copy(
+                isProgress = true,
+                photos = emptyList(),
+            )
 
-        Thread.sleep(2000)
+            delay(2000)
 
-        _state.value = state.value!!.copy(
-            isProgress = false,
-            photos = mockData,
-        )
+            _state.value = state.value!!.copy(
+                isProgress = false,
+                photos = mockData,
+            )
+        }
     }
 }
 
