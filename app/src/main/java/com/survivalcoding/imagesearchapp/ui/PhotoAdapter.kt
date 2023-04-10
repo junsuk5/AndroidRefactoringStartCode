@@ -8,18 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.imagesearchapp.R
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.databinding.ItemPhotoBinding
 import com.survivalcoding.imagesearchapp.util.ext.setUrl
 
 class PhotoAdapter(
     private val onClicked: (PhotoInfo) -> Unit = {},
 ) : ListAdapter<PhotoInfo, PhotoAdapter.ViewHolder>(DiffCallback) {
 
-    // TODO: 코드 더 줄이기
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView
+        private val binding: ItemPhotoBinding by lazy {
+            ItemPhotoBinding.bind(view)
+        }
 
-        init {
-            imageView = view.findViewById(R.id.imageView)
+        fun bind(photo: PhotoInfo) {
+            binding.imageView.setUrl(photo.previewURL)
         }
     }
 
@@ -31,9 +33,7 @@ class PhotoAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val photo = getItem(position)
-
-        viewHolder.imageView.setUrl(photo.previewURL)
+        viewHolder.bind(getItem(position))
 
         // 클릭 이벤트 정의
         viewHolder.itemView.setOnClickListener {
