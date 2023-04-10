@@ -1,4 +1,4 @@
-package com.survivalcoding.imagesearchapp
+package com.survivalcoding.imagesearchapp.ui
 
 import android.os.Bundle
 import android.widget.EditText
@@ -7,12 +7,10 @@ import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.survivalcoding.imagesearchapp.R
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
-import com.survivalcoding.imagesearchapp.ui.PhotoAdapter
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     // TODO: 안전한 코드로 변경
