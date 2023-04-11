@@ -1,13 +1,16 @@
 package com.survivalcoding.imagesearchapp.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
 import com.survivalcoding.imagesearchapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -37,17 +40,24 @@ class MainActivity : AppCompatActivity() {
         // Reactive 하게 UI 수정
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collectLatest { state ->
-                    updateUi(state.photos)
-                    binding.progressBar.isVisible = state.isProgress
+                viewModel.eventFlow.collect { event ->
+                    when (event) {
+                        MainEvent.EndLoading -> {
+                            Snackbar.make(binding.root, "로딩 완료", Snackbar.LENGTH_SHORT).show()
+                        }
+                        is MainEvent.ShowMessage -> {
+                            Toast.makeText(applicationContext, event.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
 
-//        viewModel.state.observe(this) { state ->
-//            updateUi(state.photos)
-//            binding.progressBar.isVisible = state.isProgress
-//        }
+
+        viewModel.state.asLiveData().observe(this) { state ->
+            updateUi(state.photos)
+            binding.progressBar.isVisible = state.isProgress
+        }
 
         binding.searchButton.setOnClickListener {
             // 사진 가져오기
