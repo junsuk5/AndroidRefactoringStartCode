@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
 import com.survivalcoding.imagesearchapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val adapter: PhotoAdapter by lazy {
         PhotoAdapter()
     }
 
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModel.Factory
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)

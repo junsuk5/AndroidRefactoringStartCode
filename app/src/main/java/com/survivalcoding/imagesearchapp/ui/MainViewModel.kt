@@ -9,11 +9,13 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.survivalcoding.imagesearchapp.ImageSearchApp
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class MainUiState(
     val photos: List<PhotoInfo> = emptyList(),
@@ -26,7 +28,8 @@ sealed class MainEvent {
     object EndLoading : MainEvent()
 }
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
@@ -64,14 +67,4 @@ class MainViewModel(
         }
     }
 
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val photoRepository = (this[APPLICATION_KEY] as ImageSearchApp).photoRepository
-                MainViewModel(
-                    photoRepository = photoRepository
-                )
-            }
-        }
-    }
 }

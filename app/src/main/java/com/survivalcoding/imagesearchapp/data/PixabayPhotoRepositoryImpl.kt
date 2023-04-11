@@ -1,8 +1,9 @@
 package com.survivalcoding.imagesearchapp.data
 
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
+import javax.inject.Inject
 
-class PixabayPhotoRepositoryImpl(
+class PixabayPhotoRepositoryImpl @Inject constructor(
     private val api: PhotoApi
 ): PhotoRepository {
 
