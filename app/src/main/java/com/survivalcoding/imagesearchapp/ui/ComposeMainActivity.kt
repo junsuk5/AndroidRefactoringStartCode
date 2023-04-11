@@ -3,8 +3,11 @@ package com.survivalcoding.imagesearchapp.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,37 +18,51 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 
 class ComposeMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            var expanded by remember { mutableStateOf(false) }
+            val names = (1..100).toList()
 
-            val extraPadding = if (expanded) 48.dp else 0.dp
-
-            Row(
-                modifier = Modifier
-                    .padding(24.dp)
-                    .background(color = Color.Gray)
-            ) {
-                Column(
-                    modifier = Modifier.weight(1f)
-                        .padding(bottom = extraPadding)
-                ) {
-                    Text(text = "Hello")
-                    Text(text = "World")
-                }
-                Button(
-                    onClick = {
-                        expanded = !expanded
-                    }
-                ) {
-                    Text(text = if (expanded) "줄이기" else "더 보기")
+            LazyColumn {
+                items(items = names) { name ->
+                    ExpandableItem(text = "$name")
                 }
             }
+        }
+    }
 
+}
+
+@Composable
+fun ExpandableItem(text: String) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp
+    )
+
+    Row(
+        modifier = Modifier
+            .padding(24.dp)
+            .background(color = Color.Gray)
+    ) {
+        Column(
+            modifier = Modifier.weight(1f)
+                .padding(bottom = extraPadding)
+        ) {
+            Text(text = "Hello")
+            Text(text = text)
+        }
+        Button(
+            onClick = {
+                expanded = !expanded
+            }
+        ) {
+            Text(text = if (expanded) "줄이기" else "더 보기")
         }
     }
 }
