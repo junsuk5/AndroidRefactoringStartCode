@@ -1,7 +1,12 @@
 package com.survivalcoding.imagesearchapp.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.survivalcoding.imagesearchapp.ImageSearchApp
 import com.survivalcoding.imagesearchapp.domain.PhotoInfo
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
