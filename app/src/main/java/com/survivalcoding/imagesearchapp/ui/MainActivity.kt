@@ -4,9 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.survivalcoding.imagesearchapp.data.PhotoInfo
 import com.survivalcoding.imagesearchapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val adapter: PhotoAdapter by lazy {
@@ -30,10 +35,19 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         // Reactive 하게 UI 수정
-        viewModel.state.observe(this) { state ->
-            updateUi(state.photos)
-            binding.progressBar.isVisible = state.isProgress
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collectLatest { state ->
+                    updateUi(state.photos)
+                    binding.progressBar.isVisible = state.isProgress
+                }
+            }
         }
+
+//        viewModel.state.observe(this) { state ->
+//            updateUi(state.photos)
+//            binding.progressBar.isVisible = state.isProgress
+//        }
 
         binding.searchButton.setOnClickListener {
             // 사진 가져오기
