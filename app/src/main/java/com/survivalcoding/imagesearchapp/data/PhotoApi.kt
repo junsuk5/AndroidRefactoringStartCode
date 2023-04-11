@@ -1,5 +1,6 @@
 package com.survivalcoding.imagesearchapp.data
 
+import com.survivalcoding.imagesearchapp.domain.PhotoResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,7 +1,7 @@
 package com.survivalcoding.imagesearchapp.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.domain.PhotoInfo
 
 object DiffCallback : DiffUtil.ItemCallback<PhotoInfo>() {
     override fun areItemsTheSame(oldItem: PhotoInfo, newItem: PhotoInfo): Boolean {

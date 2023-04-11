@@ -1,4 +1,4 @@
-package com.survivalcoding.imagesearchapp.data
+package com.survivalcoding.imagesearchapp.domain
 
 data class PhotoResult(
     val total: Int,

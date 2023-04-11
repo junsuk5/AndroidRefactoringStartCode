@@ -1,5 +1,6 @@
 package com.survivalcoding.imagesearchapp.data
 
+import com.survivalcoding.imagesearchapp.domain.PhotoInfo
 import com.survivalcoding.imagesearchapp.domain.PhotoRepository
 import kotlinx.coroutines.delay
 

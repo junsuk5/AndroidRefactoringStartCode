@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.imagesearchapp.R
-import com.survivalcoding.imagesearchapp.data.PhotoInfo
+import com.survivalcoding.imagesearchapp.domain.PhotoInfo
 import com.survivalcoding.imagesearchapp.databinding.ItemPhotoBinding
 import com.survivalcoding.imagesearchapp.util.ext.setUrl
 
