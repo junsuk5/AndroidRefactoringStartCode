@@ -91,6 +91,12 @@ dependencies {
 
     // = viewModel()
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+
+    // collectAsStateWithLifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+
+    // coil compose
+    implementation "io.coil-kt:coil-compose:2.3.0"
 }
 
 // Allow references to generated code
